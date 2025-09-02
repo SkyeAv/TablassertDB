@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 def new_tbdb(yamlfile: Path) -> None:
-    config: dict[str, Any] = pg_config(yamlfile)
-    clean_all(config)
-    migrate(config)
-    return None
+  config: dict[str, Any] = pg_config(yamlfile)
+  clean_all(config)
+  migrate(config)
+  return None
