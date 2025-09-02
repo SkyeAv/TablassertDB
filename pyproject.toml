@@ -1,0 +1,15 @@
+# author --> Skye Lane Goetz
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tbdb"
+version = "0.1.0"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+tbdb-build = "tbdb.ui.cli:main"
