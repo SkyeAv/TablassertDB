@@ -5,7 +5,8 @@ from os import environ
 import subprocess
 
 def pgloader_query(config: dict[str, Any]) -> Path:
-    loadfile: Path = root(False) / "core" / "migrate_tbdb.load"
+    loadfile: Path = root(False) / "CACHE" / "migrate_tbdb.load"
+    loadfile.parent.mkdir(parents=True, exist_ok=True)
     query: str = f"""\
 LOAD DATABASE
     FROM sqlite//:{config["babel"].as_posix()}
