@@ -38,7 +38,8 @@
               exit 0
             fi
 
-            initdb -D "$DATADIR" -U "${pgUser}" -A trust --encoding=UTF8 --locale=C
+            cp -r ${pg.initialDB} "$DATADIR"
+            chmod -R u+w "$DATADIR"
 
             {
               echo "unix_socket_directories = '$(pwd)/$RUNDIR'"
