@@ -7,7 +7,7 @@
       pg = pkgs.postgresql_16;
       pgloader = pkgs.pgloader;
       pgPort = ''''${TBDB_PORT:-5432}'';
-      pgUser = ''''${TBDB_USER:-multiomics}'';
+      pgUser = ''''${TBDB_USER:-postgres}'';
       pgName = ''''${TBDB_NAME:-TBDB}'';
       py = pkgs.python313Packages;
     in
