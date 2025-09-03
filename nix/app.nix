@@ -7,7 +7,7 @@
       pg = pkgs.postgresql_16;
       pgloader = pkgs.pgloader;
       pgPort = ''''${TBDB_PORT:-5432}'';
-      pgUser = ''''${TBDB_USER:-postgres}'';
+      pgUser = ''''${TBDB_USER:-multiomics}'';
       pgName = ''''${TBDB_NAME:-TBDB}'';
       py = pkgs.python313Packages;
     in
@@ -23,14 +23,36 @@
         tbdb-init = pkgs.writeShellApplication {
           name = "tbdb-init";
           runtimeInputs = [
+            pkgs.nss_wrapper
             pkgs.coreutils
             pg
           ];
           text = ''
             set -euo pipefail
 
+            TMP="$(mktemp -d)"
+            cleanup() { rm -rf "$TMP" || true; unset NSS_WRAPPER_PASSWD NSS_WRAPPER_GROUP; unset LD_PRELOAD; }
+            trap cleanup EXIT
+
+            USER_ID="$(id -u)"
+            GROUP_ID="$(id -g)"
+            NAME="${pgUser}"
+            HOME_DIR="''${HOME:-/tmp}"
+
             DATADIR="''${1:-.pgdata}"
             RUNDIR="''${2:-.pg_run}"
+            cat >"$TMP/passwd" <<EOF
+
+            $NAME:x:$USER_ID:$GROUP_ID:$NAME:$HOME_DIR:/bin/sh
+            EOF
+
+            cat >"$TMP/group" <<EOF
+            $NAME:x:$GROUP_ID:
+            EOF
+
+            export NSS_WRAPPER_PASSWD="$TMP/passwd"
+            export NSS_WRAPPER_GROUP="$TMP/group"
+            export LD_PRELOAD="${pkgs.nss_wrapper}/lib/libnss_wrapper.so"
             
             mkdir -p "$RUNDIR"
             if [ -f "$DATADIR/PG_VERSION" ]; then
@@ -38,18 +60,17 @@
               exit 0
             fi
 
-            cp -r ${pg.initialDB} "$DATADIR"
-            chmod -R u+w "$DATADIR"
+            initdb -D "$DATADIR" -U "${pgUser}" -A trust --encoding=UTF8 --locale=C
 
             {
               echo "unix_socket_directories = '$(pwd)/$RUNDIR'"
-              echo "port = ${pgUser}"
+              echo "port = ${pgPort}"
             } >> "$DATADIR/postgresql.conf"
 
             pg_ctl -D "$DATADIR" -l "$DATADIR/postgres.log" -o "-k $(pwd)/$RUNDIR -p ${pgPort}" start
 
             INITSQL="CREATE DATABASE \"${pgName}\" OWNER \"${pgUser}\""
-            psql -h "$(pwd)/$RUNDIR" -p "${pgUser}" -U "${pgUser}" -d postgres -c "$INITSQL"
+            psql -h "$(pwd)/$RUNDIR" -p "${pgPort}" -U "${pgUser}" -d postgres -c "$INITSQL"
 
             echo "FLAKE-CODE:2 | Sucessfully Intilialized $DATADIR..."
             echo "psql -h $(pwd)/$RUNDIR -p ${pgPort} -U ${pgUser} ${pgName}"

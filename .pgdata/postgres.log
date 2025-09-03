@@ -1,0 +1,5 @@
+2025-09-02 17:01:55.686 PDT [926277] LOG:  starting PostgreSQL 16.9 on x86_64-pc-linux-gnu, compiled by clang version 19.1.7, 64-bit
+2025-09-02 17:01:55.686 PDT [926277] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-09-02 17:01:55.687 PDT [926277] LOG:  listening on Unix socket "/local_raid1/sgoetz/CODE/TABLASSERT_DB/.pg_run/.s.PGSQL.5432"
+2025-09-02 17:01:55.690 PDT [926280] LOG:  database system was shut down at 2025-09-02 17:01:55 PDT
+2025-09-02 17:01:55.694 PDT [926277] LOG:  database system is ready to accept connections
