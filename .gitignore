@@ -1,5 +1,6 @@
 *__pycache__/
 *.mypy_cache/
 *.out
-*.pg_data/
+*.pgdata/
+*.pginit/
 *.pg_run/
