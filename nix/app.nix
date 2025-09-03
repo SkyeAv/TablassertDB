@@ -10,6 +10,7 @@
       pgUser = ''''${TBDB_USER:-multiomics}'';
       pgName = ''''${TBDB_NAME:-TBDB}'';
       py = pkgs.python313Packages;
+      sqliteTempDir = "/local_raid1/sgoetz/SQLITE_TEMPDIR";
     in
     {
       devShells.default = pkgs.mkShell {
@@ -102,6 +103,7 @@
             "--set TBDB_USER ${pgUser}"
             "--set TBDB_NAME ${pgName}"
             "--set TBDB_SQL_PATH $out/share/sql"
+            "--set SQLITE_TMPDIR ${sqliteTempDir}"
           ];
         };
         tbdb-stop = pkgs.writeShellApplication {
