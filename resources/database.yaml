@@ -1,5 +1,5 @@
 # author --> Skye Lane Goetz
 
-babel:
-pubmed:
-pmc_captions:
+babel: /local_raid1/sgoetz/DBSTORE/TBDB/DERIVATIVES/BABEL.db
+pubmed: /local_raid1/sgoetz/DBSTORE/TBDB/DERIVATIVES/PubMed.db
+pmc_captions: /local_raid1/sgoetz/DBSTORE/TBDB/DERIVATIVES/PMCSuppCaptions.db

@@ -3,3 +3,5 @@
 2025-09-02 17:01:55.687 PDT [926277] LOG:  listening on Unix socket "/local_raid1/sgoetz/CODE/TABLASSERT_DB/.pg_run/.s.PGSQL.5432"
 2025-09-02 17:01:55.690 PDT [926280] LOG:  database system was shut down at 2025-09-02 17:01:55 PDT
 2025-09-02 17:01:55.694 PDT [926277] LOG:  database system is ready to accept connections
+2025-09-02 17:06:55.789 PDT [926278] LOG:  checkpoint starting: time
+2025-09-02 17:08:32.246 PDT [926278] LOG:  checkpoint complete: wrote 967 buffers (5.9%); 0 WAL file(s) added, 0 removed, 0 recycled; write=96.441 s, sync=0.014 s, total=96.457 s; sync files=310, longest=0.001 s, average=0.001 s; distance=4535 kB, estimate=4535 kB; lsn=0/195FF70, redo lsn=0/195FF38

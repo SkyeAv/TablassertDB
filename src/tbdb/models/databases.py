@@ -35,4 +35,4 @@ def pg_config(yamlfile: Path) -> dict[str, Any]:
   except ValidationError as e:
     fail: str = str(e)
     err: str = f"BUILD-CODE:4 | Yaml Failed Validation... {string_path}... {fail}"
-    raise ValidationError(err)
+    raise ValueError(err)
