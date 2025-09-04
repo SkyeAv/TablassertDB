@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS [type];
 -- DROP INDEXES FOR FASTER TRANSFER
 DROP INDEX IF EXISTS [idx_mesh_pmid];
 DROP INDEX IF EXISTS [idx_mesh_pmcid];
+DROP INDEX IF EXISTS [idx_mesh_qual];
 DROP INDEX IF EXISTS [idx_mesh_mesh];
 DROP INDEX IF EXISTS [idx_ids_pmid];
 DROP INDEX IF EXISTS [idx_ids_alt];
