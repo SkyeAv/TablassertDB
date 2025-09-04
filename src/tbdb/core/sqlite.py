@@ -28,7 +28,7 @@ def configure_tbdb(config: dict[str, Any]) -> None:
     conn.close()
 
 def clean_all(config: dict[str, Any]) -> None:
-  #execute_sqlscript(config, "babel")
+  # TODO: reenable after migration if finished... `execute_sqlscript(config, "babel")`
   execute_sqlscript(config, "pubmed")
   execute_sqlscript(config, "pmc_captions")
   configure_tbdb(config)  
