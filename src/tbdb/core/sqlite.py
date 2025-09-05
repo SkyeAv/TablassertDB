@@ -18,8 +18,8 @@ def configure_tbdb(config: dict[str, Any]) -> None:
   scriptfile: Path = SCRIPTS / "configure_tbdb.sql"
   conn = sqlite3.connect(config["babel"], isolation_level=None)
   try:
-    conn.execute("ATTACH DATABASE ? AS PUBMED", (config["pubmed"],))
-    conn.execute("ATTACH DATABASE ? AS PMC_CAPTIONS", (config["pmc_captions"],))
+    conn.execute("ATTACH DATABASE ? AS PUBMED", ((config["pubmed"]).as_posix(),))
+    conn.execute("ATTACH DATABASE ? AS PMC_CAPTIONS", ((config["pmc_captions"]).as_posix(),))
     conn.executescript(scriptfile.read_text(encoding="utf-8"))
     return None
   finally:
@@ -28,8 +28,9 @@ def configure_tbdb(config: dict[str, Any]) -> None:
     conn.close()
 
 def clean_all(config: dict[str, Any]) -> None:
-  # TODO: reenable after migration is finished... `execute_sqlscript(config, "babel")`
-  execute_sqlscript(config, "pubmed")
-  execute_sqlscript(config, "pmc_captions")
+  # TODO: reenable after migration is finished...
+  # execute_sqlscript(config, "babel")
+  # execute_sqlscript(config, "pubmed")
+  # execute_sqlscript(config, "pmc_captions")
   configure_tbdb(config)  
   return None
